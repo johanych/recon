@@ -1,0 +1,44 @@
+
+
+
+
+on: [push] # This is a trigger https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+
+jobs:
+  build:
+  # The OS for which will be used.
+  # You can specify the exact version if you want.
+    runs-on: ubuntu-latest
+
+    # From here we just define all the steps that we have to do.
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      # Install golang
+      - name: Setup golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.14.14'
+
+      - name: Setup go tools
+        run: |
+          go version
+          GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder          
+
+      - name: Run Subfinder
+        run: subfinder -silent -dL scope.txt -o subfinder.txt
+
+      - name: Save domains
+        run: |
+          git config --local user.email "myemail@example.com"
+          git config --local user.name "MY USERNAME"
+          git add --all
+          git commit -m "Add Subdomains.txt"          
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          
+      
