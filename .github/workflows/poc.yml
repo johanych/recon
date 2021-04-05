@@ -1,7 +1,5 @@
 
 
-
-
 on: [push] # This is a trigger https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 
 jobs:
