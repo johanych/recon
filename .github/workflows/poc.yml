@@ -31,14 +31,14 @@ jobs:
 
       - name: Save domains
         run: |
-          git config --local user.email "myemail@example.com"
-          git config --local user.name "MY USERNAME"
+          git config --local user.email "johanych@msn.com"
+          git config --local user.name "johanych"
           git add --all
           git commit -m "Add Subdomains.txt"          
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.TOKEN }}
+          github_token: ${{ 9e65e0531a233142ebcabb5afbda1913f11a7e6b }}
           
       
